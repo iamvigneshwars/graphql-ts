@@ -1,0 +1,21 @@
+{
+  "name": "graphql-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "complie": "tsc",
+    "start": "npm run complie && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^4.10.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
+  }
+}

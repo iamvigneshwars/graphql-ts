@@ -35,54 +35,67 @@ export const workflows = [
 export const tasks = [
     {
         workflow_id: 1,
+        name: "task-1",
         status: "completed"
     },
     {
         workflow_id: 1,
+        name: "task-2",
         status: "completed"
     },
     {
         workflow_id: 1,
+        name: "task-3",
         status: "pending"
     },
     {
         workflow_id: 1,
+        name: "task-4",
         status: "running"
     },
     {
         workflow_id: 2,
+        name: "task-5",
         status: "pending"
     },
     {
         workflow_id: 2,
+        name: "task-6",
         status: "pending"
     },
     {
         workflow_id: 2,
+        name: "task-7",
         status: "completed"
     },
     {
         workflow_id: 3,
+        name: "task-8",
         status: "completed"
     },
     {
         workflow_id: 3,
+        name: "task-9",
         status: "completed"
     },
     {
         workflow_id: 4,
+        name: "task-10",
         status: "running"
     },
     {
         workflow_id: 4,
+        name: "task-11",
         status: "running"
     },
     {
         workflow_id: 4,
+        name: "task-12",
         status: "running"
     },
     {
         workflow_id: 5,
+        name: "task-13",
         status: "completed"
     },
 ]

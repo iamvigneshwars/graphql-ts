@@ -17,6 +17,7 @@ const typeDefs = `#graphql
 
     type Task {
         workflow_id: Int
+        name: String
         status: String
     }
 

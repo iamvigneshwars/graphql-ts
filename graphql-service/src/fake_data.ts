@@ -13,22 +13,27 @@ export const workflows = [
     {
         id: 1,
         visit_id: 1,
+        status: "completed",
     },
     {
         id: 2,
         visit_id: 1,
+        status: "running",
     },
     {
         id: 3,
         visit_id: 1,
+        status: "pending",
     },
     {
         id: 4,
         visit_id: 2,
+        status: "failed",
     },
     {
         id: 5,
         visit_id: 2,
+        status: "completed",
     },
 ]
 

@@ -17,9 +17,11 @@ const typeDefs = `#graphql
     }
 
     type Task {
+        id: Int
         workflow_id: Int
         name: String
         status: String
+        parent_task: Int
     }
 
     type Query {
@@ -39,7 +41,7 @@ const resolvers = {
         }
     },
     Workflow: {
-        tasks(parent){
+        tasks(parent) {
             return tasks.filter((task) => task.workflow_id === parent.id)
         }
     }

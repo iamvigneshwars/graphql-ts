@@ -12,6 +12,7 @@ const typeDefs = `#graphql
 
     type Workflow {
         id: Int
+        name: String
         tasks: [Task]
         status: String
     }

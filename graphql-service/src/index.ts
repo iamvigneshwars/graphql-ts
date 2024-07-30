@@ -39,7 +39,7 @@ const resolvers = {
         workflows(parent: { id: number; }, args: { completed?: boolean; running?: boolean; pending?: boolean; failed?: boolean; }) {
             let visitWorkflows = workflows.filter((workflow) => workflow.visit_id === parent.id);
             
-            if (!args.completed && !args.running && !args.pending && !args.failed) {
+            if (args.completed===undefined && args.running===undefined && args.pending===undefined && args.failed===undefined) {
                 return visitWorkflows;
             }
 

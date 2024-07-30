@@ -7,7 +7,7 @@ const typeDefs = `#graphql
     type Visit {
         id: Int
         name: String
-        workflows: [Workflow]
+        workflows(completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean): [Workflow]
     }
 
     type Workflow {
@@ -36,12 +36,32 @@ const resolvers = {
         }
     },
     Visit: {
-        workflows(parent) {
-            return workflows.filter((workflow) => workflow.visit_id === parent.id)
+        workflows(parent: { id: number; }, args: { completed?: boolean; running?: boolean; pending?: boolean; failed?: boolean; }) {
+            let visitWorkflows = workflows.filter((workflow) => workflow.visit_id === parent.id);
+            
+            if (!args.completed && !args.running && !args.pending && !args.failed) {
+                return visitWorkflows;
+            }
+
+            return visitWorkflows.filter((workflow) => {
+                if (args.completed && workflow.status === 'completed') {
+                    return true;
+                }
+                if (args.running && workflow.status === 'running') {
+                    return true;
+                }
+                if (args.pending && workflow.status === 'pending') {
+                    return true;
+                }
+                if (args.failed && workflow.status === 'failed') {
+                    return true;
+                }
+                return false;
+            });
         }
     },
     Workflow: {
-        tasks(parent) {
+        tasks(parent: { id: number; }) {
             return tasks.filter((task) => task.workflow_id === parent.id)
         }
     }

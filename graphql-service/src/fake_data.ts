@@ -71,6 +71,27 @@ export const tasks = [
         status: "pending"
     },
     {
+        id: 20,
+        parent_task: 3,
+        workflow_id: 1,
+        name: "task-20",
+        status: "running"
+    },
+    {
+        id: 30,
+        parent_task: 20,
+        workflow_id: 1,
+        name: "task-30",
+        status: "running"
+    },
+    {
+        id: 21,
+        parent_task: 3,
+        workflow_id: 1,
+        name: "task-21",
+        status: "pending"
+    },
+    {
         id: 6,
         workflow_id: 2,
         name: "task-6",
@@ -116,13 +137,6 @@ export const tasks = [
         id: 13,
         workflow_id: 5,
         name: "task-13",
-        status: "completed"
-    },
-    {
-        id: 14,
-        parent_task: 2,
-        workflow_id: 1,
-        name: "task-18",
         status: "completed"
     },
 ]

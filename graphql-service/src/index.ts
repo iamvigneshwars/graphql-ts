@@ -7,7 +7,22 @@ const typeDefs = `#graphql
     type Visit {
         id: Int
         name: String
-        workflows(completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean): [Workflow]
+        workflows(after: String, limit: Int): WorkflowConnection
+    }
+
+    type WorkflowConnection {
+        edges: [WorkflowEdge]
+        pageInfo: PageInfo
+    }
+
+    type WorkflowEdge {
+        cursor: String
+        node: Workflow
+    }
+
+    type PageInfo {
+        endCursor: String
+        hasNextPage: Boolean
     }
 
     type Workflow {
@@ -33,40 +48,62 @@ const typeDefs = `#graphql
 const resolvers = {
     Query: {
         visits() {
-            return visits
-        }
+            return visits;
+        },
     },
     Visit: {
-        workflows(parent: { id: number; }, args: { completed?: boolean; running?: boolean; pending?: boolean; failed?: boolean; }) {
+        workflows(parent, args) {
             let visitWorkflows = workflows.filter((workflow) => workflow.visit_id === parent.id);
-            
-            if (args.completed===undefined && args.running===undefined && args.pending===undefined && args.failed===undefined) {
-                return visitWorkflows;
+            if (args.completed !== undefined || args.running !== undefined || args.pending !== undefined || args.failed !== undefined) {
+                visitWorkflows = visitWorkflows.filter((workflow) => {
+                    if (args.completed && workflow.status === 'completed') {
+                        return true;
+                    }
+                    if (args.running && workflow.status === 'running') {
+                        return true;
+                    }
+                    if (args.pending && workflow.status === 'pending') {
+                        return true;
+                    }
+                    if (args.failed && workflow.status === 'failed') {
+                        return true;
+                    }
+                    return false;
+                });
             }
 
-            return visitWorkflows.filter((workflow) => {
-                if (args.completed && workflow.status === 'completed') {
-                    return true;
+            let startIndex = 0;
+            if (args.after) {
+                const afterIndex = visitWorkflows.findIndex(workflow => workflow.id.toString() === args.after);
+                startIndex = afterIndex + 1;
+            }
+
+            const limit = args.limit === undefined ? 10 : args.limit;
+            const paginatedWorkflows = visitWorkflows.slice(startIndex, startIndex + limit);
+
+            const edges = paginatedWorkflows.map(workflow => ({
+                cursor: workflow.id.toString(),
+                node: workflow
+            }));
+
+            const endCursor = edges.length > 0 ? edges[edges.length - 1].cursor : null;
+            const hasNextPage = visitWorkflows.length > startIndex + limit;
+
+            return {
+                edges,
+                pageInfo: {
+                    endCursor,
+                    hasNextPage
                 }
-                if (args.running && workflow.status === 'running') {
-                    return true;
-                }
-                if (args.pending && workflow.status === 'pending') {
-                    return true;
-                }
-                if (args.failed && workflow.status === 'failed') {
-                    return true;
-                }
-                return false;
-            });
+            };
         }
     },
     Workflow: {
-        tasks(parent: { id: number; }) {
-            return tasks.filter((task) => task.workflow_id === parent.id)
+        tasks(parent) {
+            return tasks.filter((task) => task.workflow_id === parent.id);
         }
     }
-}
+};
 
 const server = new ApolloServer({
     typeDefs,

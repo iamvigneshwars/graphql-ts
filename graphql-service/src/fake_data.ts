@@ -142,6 +142,42 @@ export const workflows = [
         name: "Workflow 22",
         status: "completed",
     },
+    {
+        id: 23,
+        visit_id: 2,
+        name: "Workflow 23",
+        status: "failed",
+    },
+    {
+        id: 24,
+        visit_id: 2,
+        name: "Workflow 24",
+        status: "completed",
+    },
+    {
+        id: 25,
+        visit_id: 2,
+        name: "Workflow 25",
+        status: "failed",
+    },
+    {
+        id: 26,
+        visit_id: 2,
+        name: "Workflow 26",
+        status: "completed",
+    },
+    {
+        id: 27,
+        visit_id: 2,
+        name: "Workflow 27",
+        status: "failed",
+    },
+    {
+        id: 28,
+        visit_id: 2,
+        name: "Workflow 28",
+        status: "completed",
+    },
 ]
 
 export const tasks = [

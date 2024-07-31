@@ -1,13 +1,14 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone"
-import { tasks, visits, workflows } from "./fake_data.js";
+import { tasks, namespaces, workflows } from "./fake_data.js";
 
 const typeDefs = `#graphql
 
-    type Visit {
+    type Workflow {
         id: Int
         name: String
-        workflows(limit: Int, after: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean): WorkflowConnection
+        tasks: [Task]
+        status: String
     }
 
     type WorkflowConnection {
@@ -26,13 +27,6 @@ const typeDefs = `#graphql
         continue: String
     }
 
-    type Workflow {
-        id: Int
-        name: String
-        tasks: [Task]
-        status: String
-    }
-
     type Task {
         id: Int
         workflow_id: Int
@@ -42,19 +36,15 @@ const typeDefs = `#graphql
     }
 
     type Query {
-        visits: [Visit]
+        namespaces: [String]
+        workflows(limit: Int, after: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean, namespace: String!): WorkflowConnection
     }
 
 `
 const resolvers = {
     Query: {
-        visits() {
-            return visits;
-        },
-    },
-    Visit: {
-        workflows(parent, args) {
-            let visitWorkflows = workflows.filter((workflow) => workflow.visit_id === parent.id);
+        workflows(_parent, args) {
+            let visitWorkflows = workflows.filter((workflow) => workflow.namespace === args.namespace);
             if (args.completed !== undefined || args.running !== undefined || args.pending !== undefined || args.failed !== undefined) {
                 visitWorkflows = visitWorkflows.filter((workflow) => {
                     if (args.completed && workflow.status === 'completed') {
@@ -99,7 +89,10 @@ const resolvers = {
                     hasNextPage,
                     continue: hasNextPage ? endCursor : null
                 }
-            };
+            }
+        },
+        namespaces(){
+            return namespaces
         }
     },
     Workflow: {

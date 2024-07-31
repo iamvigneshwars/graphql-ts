@@ -7,7 +7,7 @@ const typeDefs = `#graphql
     type Visit {
         id: Int
         name: String
-        workflows(after: String, limit: Int): WorkflowConnection
+        workflows(limit: Int, after: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean): WorkflowConnection
     }
 
     type WorkflowConnection {
@@ -23,6 +23,7 @@ const typeDefs = `#graphql
     type PageInfo {
         endCursor: String
         hasNextPage: Boolean
+        continue: String
     }
 
     type Workflow {
@@ -74,8 +75,10 @@ const resolvers = {
 
             let startIndex = 0;
             if (args.after) {
-                const afterIndex = visitWorkflows.findIndex(workflow => workflow.id.toString() === args.after);
-                startIndex = afterIndex + 1;
+                const continueIndex = visitWorkflows.findIndex(workflow => workflow.id.toString() === args.after);
+                if (continueIndex >= 0) {
+                    startIndex = continueIndex + 1;
+                }
             }
 
             const limit = args.limit === undefined ? 10 : args.limit;
@@ -93,7 +96,8 @@ const resolvers = {
                 edges,
                 pageInfo: {
                     endCursor,
-                    hasNextPage
+                    hasNextPage,
+                    continue: hasNextPage ? endCursor : null
                 }
             };
         }

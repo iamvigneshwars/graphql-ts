@@ -22,8 +22,6 @@ const typeDefs = `#graphql
     }
 
     type PageInfo {
-        endCursor: String
-        hasNextPage: Boolean
         continue: String
     }
 
@@ -37,7 +35,7 @@ const typeDefs = `#graphql
 
     type Query {
         namespaces: [String]
-        workflows(limit: Int, after: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean, namespace: String!): WorkflowConnection
+        workflows(limit: Int, continue: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean, namespace: String!): WorkflowConnection
     }
 
 `;
@@ -71,9 +69,9 @@ const resolvers = {
       }
 
       let startIndex = 0;
-      if (args.after) {
+      if (args.continue) {
         const continueIndex = visitWorkflows.findIndex(
-          (workflow) => workflow.id.toString() === args.after
+          (workflow) => workflow.id.toString() === args.continue
         );
         if (continueIndex >= 0) {
           startIndex = continueIndex + 1;
@@ -98,8 +96,6 @@ const resolvers = {
       return {
         edges,
         pageInfo: {
-          endCursor,
-          hasNextPage,
           continue: hasNextPage ? endCursor : null,
         },
       };

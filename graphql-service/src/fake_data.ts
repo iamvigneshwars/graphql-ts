@@ -467,7 +467,7 @@ export const workflow_templates = [
                 minLength: 5,
                 },
                 parameter_3: {
-                type: "string",
+                type: "integer",
                 minLength: 5,
                 },
             },
@@ -483,10 +483,6 @@ export const workflow_templates = [
                 minLength: 5,
                 },
                 parameter_2: {
-                type: "string",
-                minLength: 5,
-                },
-                parameter_3: {
                 type: "string",
                 minLength: 5,
                 },
@@ -510,6 +506,10 @@ export const workflow_templates = [
                 type: "string",
                 minLength: 5,
                 },
+                parameter_4: {
+                type: "string",
+                minLength: 5,
+                },
             },
         },
     },
@@ -527,6 +527,14 @@ export const workflow_templates = [
                 minLength: 5,
                 },
                 parameter_3: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_4: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_5: {
                 type: "string",
                 minLength: 5,
                 },

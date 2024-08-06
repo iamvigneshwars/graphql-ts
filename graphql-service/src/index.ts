@@ -1,8 +1,10 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { tasks, namespaces, workflows } from "./fake_data.js";
+import { tasks, namespaces, workflows, workflow_templates } from "./fake_data.js";
 
 const typeDefs = `#graphql
+
+    scalar JSON
 
     type Workflow {
         id: String
@@ -33,9 +35,15 @@ const typeDefs = `#graphql
         parent_task: Int
     }
 
+    type Template {
+        json_schema: JSON
+        ui_schema: JSON
+    }
+
     type Query {
         namespaces: [String]
         workflows(limit: Int, continue: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean, namespace: String!): WorkflowConnection
+        workflow_templates: [Template]
     }
 
 `;
@@ -103,6 +111,9 @@ const resolvers = {
     namespaces() {
       return namespaces;
     },
+    workflow_templates(){
+        return workflow_templates
+    }
   },
   Workflow: {
     tasks(parent) {

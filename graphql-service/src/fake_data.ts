@@ -472,5 +472,65 @@ export const workflow_templates = [
                 },
             },
         },
+    },
+    {
+        name: "workflow-template-3",
+        jsonSchema: {
+            type: "object",
+            properties: {
+                parameter_1: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_2: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_3: {
+                type: "string",
+                minLength: 5,
+                },
+            },
+        },
+    },
+    {
+        name: "workflow-template-4",
+        jsonSchema: {
+            type: "object",
+            properties: {
+                parameter_1: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_2: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_3: {
+                type: "string",
+                minLength: 5,
+                },
+            },
+        },
+    },
+    {
+        name: "workflow-template-5",
+        jsonSchema: {
+            type: "object",
+            properties: {
+                parameter_1: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_2: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_3: {
+                type: "string",
+                minLength: 5,
+                },
+            },
+        },
     }
 ]

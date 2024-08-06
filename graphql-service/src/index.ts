@@ -36,6 +36,7 @@ const typeDefs = `#graphql
     }
 
     type Template {
+        name: String
         json_schema: JSON
         ui_schema: JSON
     }

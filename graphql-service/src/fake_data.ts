@@ -395,79 +395,81 @@ export const tasks = [
 ];
 
 export const workflow_templates = [
-    {
-    json_schema: {
-        type: "object",
-        properties: {
-            parameter_1: {
-            type: "string",
-            minLength: 5,
-            },
-            parameter_2: {
-            type: "string",
-            minLength: 5,
-            },
-            parameter_3: {
-            type: "string",
-            minLength: 5,
-            },
-            parameter_4: {
-            type: "string",
-            minLength: 5,
-            },
-            parameter_5: {
-            type: "integer",
-            minValue: 3,
-            },
+    {   
+        name: "workflow-template-1",
+        json_schema: {
+            type: "object",
+            properties: {
+                parameter_1: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_2: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_3: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_4: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_5: {
+                type: "integer",
+                minValue: 3,
+                },
             },
         },
-    ui_schema: {
-        type: "VerticalLayout",
-        elements: [
-            {
-            type: "Control",
-            scope: "#/properties/parameter_1",
-            },
-            {
-            type: "Control",
-            scope: "#/properties/parameter_2",
-            },
-            {
-            type: "HorizontalLayout",
+        ui_schema: {
+            type: "VerticalLayout",
             elements: [
                 {
                 type: "Control",
-                scope: "#/properties/parameter_3",
+                scope: "#/properties/parameter_1",
                 },
                 {
                 type: "Control",
-                scope: "#/properties/parameter_4",
+                scope: "#/properties/parameter_2",
                 },
                 {
-                type: "Control",
-                scope: "#/properties/parameter_5",
+                type: "HorizontalLayout",
+                elements: [
+                    {
+                    type: "Control",
+                    scope: "#/properties/parameter_3",
+                    },
+                    {
+                    type: "Control",
+                    scope: "#/properties/parameter_4",
+                    },
+                    {
+                    type: "Control",
+                    scope: "#/properties/parameter_5",
+                    },
+                    ],
                 },
-                ],
-            },
             ],
         }
     },
     {
-    json_schema: {
-        type: "object",
-        properties: {
-            parameter_1: {
-            type: "string",
-            minLength: 5,
-            },
-            parameter_2: {
-            type: "string",
-            minLength: 5,
-            },
-            parameter_3: {
-            type: "string",
-            minLength: 5,
-            },
+        name: "workflow-template-2",
+        json_schema: {
+            type: "object",
+            properties: {
+                parameter_1: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_2: {
+                type: "string",
+                minLength: 5,
+                },
+                parameter_3: {
+                type: "string",
+                minLength: 5,
+                },
             },
         },
     }

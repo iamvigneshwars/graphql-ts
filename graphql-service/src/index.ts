@@ -37,14 +37,14 @@ const typeDefs = `#graphql
 
     type Template {
         name: String
-        json_schema: JSON
-        ui_schema: JSON
+        jsonSchema: JSON
+        UISchema: JSON
     }
 
     type Query {
         namespaces: [String]
         workflows(limit: Int, continue: String, completed: Boolean, running: Boolean, pending: Boolean, failed: Boolean, namespace: String!): WorkflowConnection
-        workflow_templates: [Template]
+        workflowTemplates: [Template]
     }
 
 `;
@@ -112,7 +112,7 @@ const resolvers = {
     namespaces() {
       return namespaces;
     },
-    workflow_templates(){
+    workflowTemplates(){
         return workflow_templates
     }
   },

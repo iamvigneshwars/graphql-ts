@@ -397,7 +397,7 @@ export const tasks = [
 export const workflow_templates = [
     {   
         name: "workflow-template-1",
-        json_schema: {
+        jsonSchema: {
             type: "object",
             properties: {
                 parameter_1: {
@@ -422,7 +422,7 @@ export const workflow_templates = [
                 },
             },
         },
-        ui_schema: {
+        UISchema: {
             type: "VerticalLayout",
             elements: [
                 {
@@ -455,7 +455,7 @@ export const workflow_templates = [
     },
     {
         name: "workflow-template-2",
-        json_schema: {
+        jsonSchema: {
             type: "object",
             properties: {
                 parameter_1: {

@@ -29,16 +29,25 @@ const typeDefs = `#graphql
 
     type Task {
         id: String
-        workflow_id: Int
+        workflow_id: String
         name: String
         status: String
-        parent_task: Int
+        parent_task: String
     }
 
     type Template {
         name: String
         jsonSchema: JSON
         UISchema: JSON
+    }
+
+    type UserWorkflowTemplate {
+        namespace: String
+        template: JSON
+    }
+
+    type Mutation {
+        submitWorkflowTemplate(namespace: String!, inputTemplate: JSON!): UserWorkflowTemplate
     }
 
     type Query {
@@ -115,6 +124,14 @@ const resolvers = {
     workflowTemplates(){
         return workflow_templates
     }
+  },
+  Mutation: {
+    submitWorkflowTemplate(_parent, args) {
+        return {
+            namespace: args.namespace,
+            template: args.inputTemplate,
+        }
+    },
   },
   Workflow: {
     tasks(parent) {
